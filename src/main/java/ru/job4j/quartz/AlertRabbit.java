@@ -16,7 +16,8 @@ public class AlertRabbit {
     public static void main(String[] args) {
         try {
             Properties config = new Properties();
-            config.load(new BufferedReader(new FileReader("./src/main/java/ru/job4j/quartz/rabbit.properties")));
+            config.load(new BufferedReader(
+                    new FileReader("./src/main/java/ru/job4j/quartz/rabbit.properties")));
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDetail job = newJob(Rabbit.class).build();
