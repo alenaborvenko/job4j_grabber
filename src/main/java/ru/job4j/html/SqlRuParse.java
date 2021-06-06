@@ -11,18 +11,20 @@ import java.time.LocalDateTime;
 
 public class SqlRuParse {
     public static void main(String[] args) throws IOException {
-        Document document = Jsoup.connect("https://www.sql.ru/forum/job-offers").get();
-        Elements row = document.select(".postslisttopic");
-        Elements rowDate = document.select(".altCol");
-        int i = 1;
-        for (Element el : row) {
-            String timeHTML = rowDate.get(i).text();
-            LocalDateTime time = new SqlRuDateTimeParser().parse(timeHTML);
-            System.out.println(time);
-            Element href = el.child(0);
-            System.out.println(href.attr("href"));
-            System.out.println(href.text());
-            i += 2;
+        for (int i = 1; i <= 5; i++) {
+            Document document = Jsoup.connect("https://www.sql.ru/forum/job-offers/" + i).get();
+            Elements row = document.select(".postslisttopic");
+            Elements rowDate = document.select(".altCol");
+            int altCol = 1;
+            for (Element el : row) {
+                String timeHTML = rowDate.get(altCol).text();
+                LocalDateTime time = new SqlRuDateTimeParser().parse(timeHTML);
+                System.out.println(time);
+                Element href = el.child(0);
+                System.out.println(href.attr("href"));
+                System.out.println(href.text());
+                altCol += 2;
+            }
         }
     }
 }
