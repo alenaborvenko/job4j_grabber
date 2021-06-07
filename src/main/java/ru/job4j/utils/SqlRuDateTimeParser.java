@@ -8,6 +8,12 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SqlRuDateTimeParser implements DateTimeParser {
+
+    public static final String PATTERN = "dd MMM yy',' HH:mm";
+    public static final String[] MONTHS = {
+            "янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"
+    };
+
     @Override
     public LocalDateTime parse(String parse) {
         Locale ru = new Locale("ru", "RU");
@@ -17,12 +23,9 @@ public class SqlRuDateTimeParser implements DateTimeParser {
         if (parse.contains("сегодня")) {
             return parseNotDay(0, parse);
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy',' HH:mm", ru);
-        String[] months = {
-                "янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"
-        };
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PATTERN, ru);
         DateFormatSymbols symbols = DateFormatSymbols.getInstance(ru);
-        symbols.setMonths(months);
+        symbols.setMonths(MONTHS);
         simpleDateFormat.setDateFormatSymbols(symbols);
         LocalDateTime rsl = null;
         try {
