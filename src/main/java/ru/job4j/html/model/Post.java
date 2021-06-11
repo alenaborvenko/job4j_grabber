@@ -5,24 +5,33 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Post {
-    private String autor;
+    private int id;
+    private String name;
     private String text;
-    private String url;
+    private String link;
     private LocalDateTime created;
 
-    public Post(String autor, String text, String url, LocalDateTime created) {
-        this.autor = autor;
+    public Post(String name, String text, String link, LocalDateTime created) {
+        this.name = name;
         this.text = text;
-        this.url = url;
+        this.link = link;
         this.created = created;
     }
 
-    public String getAutor() {
-        return autor;
+    public int getId() {
+        return id;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getText() {
@@ -33,12 +42,12 @@ public class Post {
         this.text = text;
     }
 
-    public String getUrl() {
-        return url;
+    public String getLink() {
+        return link;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public LocalDateTime getCreated() {
@@ -58,21 +67,22 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
-        return Objects.equals(autor, post.autor) && Objects.equals(text, post.text)
-                && Objects.equals(url, post.url);
+        return id == post.id && Objects.equals(name, post.name) && Objects.equals(text, post.text)
+                && Objects.equals(link, post.link) && Objects.equals(created, post.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(autor, text, url);
+        return Objects.hash(id, name, text, link, created);
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Post.class.getSimpleName() + "[", "]")
-                .add("autor='" + autor + "'")
+                .add("id=" + id)
+                .add("name='" + name + "'")
                 .add("text='" + text + "'")
-                .add("url='" + url + "'")
+                .add("link='" + link + "'")
                 .add("created=" + created)
                 .toString();
     }
