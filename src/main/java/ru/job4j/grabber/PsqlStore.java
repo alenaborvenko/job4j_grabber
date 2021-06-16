@@ -34,7 +34,7 @@ public class PsqlStore implements Store, AutoCloseable {
 
     @Override
     public void save(Post post) {
-        String sql = "insert into post values (?,?,?,?)";
+        String sql = "insert into post(name,text,link,created) values (?,?,?,?)";
         try (PreparedStatement preparedStatement = cnn.prepareStatement(sql,
                 Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, post.getName());
@@ -74,7 +74,7 @@ public class PsqlStore implements Store, AutoCloseable {
         Post post = null;
         String sql = "select * from post where id = ?";
         try (PreparedStatement preparedStatement = cnn.prepareStatement(sql)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, Integer.parseInt(id));
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     post = getPostFromResultSet(resultSet);
@@ -92,7 +92,7 @@ public class PsqlStore implements Store, AutoCloseable {
                 resultSet.getString(2), // name
                 resultSet.getString(3), // text
                 resultSet.getString(4), //link
-                resultSet.getTimestamp(4).toLocalDateTime() // created
+                resultSet.getTimestamp(5).toLocalDateTime() // created
         );
     }
 
