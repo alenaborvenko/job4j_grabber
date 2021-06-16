@@ -17,7 +17,7 @@ public class GrabJob implements Job {
         String link = (String) map.get("link");
         try {
             List<Post> posts = parse.list(link);
-            for (Post post: posts ) {
+            for (Post post: posts) {
                 store.save(post);
                 System.out.println(post);
             }

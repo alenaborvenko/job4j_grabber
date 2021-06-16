@@ -20,6 +20,7 @@ public class MemStore implements Store {
 
     @Override
     public Post findById(String id) {
-        return posts.stream().filter(s -> s.getId() == Integer.parseInt(id)).findFirst().orElse(null);
+        return posts.stream().filter(s -> s.getId() == Integer.parseInt(id)).findFirst()
+                .orElse(null);
     }
 }
