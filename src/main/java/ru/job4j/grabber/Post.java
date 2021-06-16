@@ -85,8 +85,6 @@ public class Post {
     public String toString() {
         return new StringJoiner(", ", Post.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("name='" + name + "'")
-                .add("text='" + text + "'")
                 .add("link='" + link + "'")
                 .add("created=" + created)
                 .toString();
