@@ -20,7 +20,7 @@ public class SqlRuParse {
         String name = document.select(".messageHeader").get(0).text();
         String href = msgFooter.baseUri();
         Element data = msgBody.get(1);
-        LocalDateTime time = new SqlRuDateTimeParser().parse(msgFooter.text().split("\\[")[0]);
+        LocalDateTime time = new SqlRuDateTimeParser().parse(msgFooter.text().split(" \\[")[0]);
         Post post = new Post(
                 name,
                 data.text(),
