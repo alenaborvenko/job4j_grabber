@@ -35,7 +35,8 @@ public class PsqlStore implements Store, AutoCloseable {
     @Override
     public void save(Post post) {
         String sql = "insert into post values (?,?,?,?)";
-        try(PreparedStatement preparedStatement = cnn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = cnn.prepareStatement(sql,
+                Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, post.getName());
             preparedStatement.setString(2, post.getText());
             preparedStatement.setString(3, post.getLink());
@@ -97,7 +98,8 @@ public class PsqlStore implements Store, AutoCloseable {
 
     public static void main(String[] args) {
         Properties config = new Properties();
-        try (InputStream in = PsqlStore.class.getClassLoader().getResourceAsStream("database.properties")) {
+        try (InputStream in = PsqlStore.class.getClassLoader()
+                .getResourceAsStream("database.properties")) {
             config.load(in);
         } catch (IOException e) {
             throw new IllegalStateException("Wrong file");
