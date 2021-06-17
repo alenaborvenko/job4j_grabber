@@ -19,7 +19,6 @@ public class GrabJob implements Job {
             List<Post> posts = parse.list(link);
             for (Post post: posts) {
                 store.save(post);
-                System.out.println(post);
             }
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();

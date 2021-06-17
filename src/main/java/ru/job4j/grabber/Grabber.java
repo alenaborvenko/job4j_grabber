@@ -4,6 +4,8 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Properties;
 
 import static org.quartz.JobBuilder.newJob;
@@ -14,6 +16,7 @@ public class Grabber implements Grab {
     private final Properties config = new Properties();
 
     public Store store() {
+        //return new MemStore();
         return new PsqlStore(config);
     }
 
@@ -45,11 +48,32 @@ public class Grabber implements Grab {
         scheduler.scheduleJob(job, trigger);
     }
 
+    public void web(Store store) {
+        new Thread(() -> {
+            try (ServerSocket server = new ServerSocket(Integer.parseInt("port"))) {
+                while (!server.isClosed()) {
+                    Socket socket = server.accept();
+                    System.out.println("Server start");
+                    try (OutputStream out = socket.getOutputStream()) {
+                        out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                        for (Post post : store.getAll()) {
+                            out.write(post.toString().getBytes());
+                            out.write(System.lineSeparator().getBytes());
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     public static void main(String[] args) throws IOException, SchedulerException {
         Grabber grab = new Grabber();
         grab.config();
         Scheduler scheduler = grab.scheduler();
         Store store = grab.store();
         grab.init(new SqlRuParse(), store, scheduler);
+        grab.web(store);
     }
 }
