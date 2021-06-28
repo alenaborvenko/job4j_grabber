@@ -12,16 +12,13 @@ public class DirFileCache extends AbstractCache<String, String> {
     }
 
     @Override
-    protected String load(String key) {
+    protected String load(String key) throws IOException {
         StringBuilder rsl = new StringBuilder();
         try (BufferedReader bwReader = new BufferedReader(new FileReader(cachingDir + key))) {
             String str;
-        while ((str = bwReader.readLine()) != null) {
-            rsl.append(str).append("\n");
-
-        }
-        } catch (IOException e) {
-            e.printStackTrace();
+            while ((str = bwReader.readLine()) != null) {
+                rsl.append(str).append("\n");
+            }
         }
         return rsl.toString();
     }
