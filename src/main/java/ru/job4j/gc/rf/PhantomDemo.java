@@ -32,7 +32,7 @@ public class PhantomDemo {
         }
 
         public void utilizeResource() {
-            for (ListIterator<MyPhantom> it = phantoms.listIterator(); it.hasNext(); ) {
+            for (ListIterator<MyPhantom> it = phantoms.listIterator(); it.hasNext();) {
                 MyPhantom current = it.next();
                 if (current != null && current.isEnqueued()) {
                     System.out.println("Utilized " + current.get());

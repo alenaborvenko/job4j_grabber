@@ -17,8 +17,8 @@ public class StrongDemo {
     private static void example5() {
         List<SoftReference<Object>> objects = new ArrayList<>();
         for (int i = 0; i < 100_000_000; i++) {
-            objects.add(new SoftReference<Object>(new Object() {
-                String value = String.valueOf(System.currentTimeMillis());
+            objects.add(new SoftReference<>(new Object() {
+                private String value = String.valueOf(System.currentTimeMillis());
 
                 @Override
                 protected void finalize() {
@@ -66,7 +66,7 @@ public class StrongDemo {
         Object[] objects = new Object[100];
         for (int i = 0; i < objects.length; i++) {
             Object object  = new Object() {
-                Object innnerObject = new Object() {
+                private Object innnerObject = new Object() {
                     @Override
                     protected void finalize() throws Throwable {
                         System.out.println("Remove inner object!");
