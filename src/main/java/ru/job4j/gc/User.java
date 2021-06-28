@@ -9,11 +9,11 @@ public class User {
         this.surname = surname;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        System.out.printf("Removed %s %s%n", name, surname);
-        super.finalize();
-    }
+    //@Override
+    //protected void finalize() throws Throwable {
+        //System.out.printf("Removed %s %s%n", name, surname);
+    //    super.finalize();
+    //}
 
     public String getName() {
         return name;

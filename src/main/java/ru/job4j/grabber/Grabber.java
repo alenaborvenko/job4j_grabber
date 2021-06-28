@@ -2,6 +2,7 @@ package ru.job4j.grabber;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import ru.job4j.utils.SqlRuDateTimeParser;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -16,8 +17,8 @@ public class Grabber implements Grab {
     private final Properties config = new Properties();
 
     public Store store() {
-        //return new MemStore();
-        return new PsqlStore(config);
+        return new MemStore();
+        //return new PsqlStore(config);
     }
 
     public Scheduler scheduler() throws SchedulerException {
@@ -73,7 +74,7 @@ public class Grabber implements Grab {
         grab.config();
         Scheduler scheduler = grab.scheduler();
         Store store = grab.store();
-        grab.init(new SqlRuParse(), store, scheduler);
+        grab.init(new SqlRuParse(new SqlRuDateTimeParser()), store, scheduler);
         grab.web(store);
     }
 }

@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.utils.DateTimeParser;
 import ru.job4j.utils.SqlRuDateTimeParser;
 
 import java.io.IOException;
@@ -12,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlRuParse implements Parse {
+    private final DateTimeParser dateTimeParser;
+
+    public SqlRuParse(DateTimeParser dateTimeParser) {
+        this.dateTimeParser = dateTimeParser;
+    }
+
     @Override
     public List<Post> list(String link) {
         List<Post> posts = new ArrayList<>();
@@ -40,7 +47,7 @@ public class SqlRuParse implements Parse {
             String name = document.select(".messageHeader").get(0).text();
             String href = msgFooter.baseUri();
             Element data = msgBody.get(1);
-            LocalDateTime time = new SqlRuDateTimeParser().parse(msgFooter.text().split(" \\[")[0]);
+            LocalDateTime time = dateTimeParser.parse(msgFooter.text().split(" \\[")[0]);
             post = new Post(name, data.text(), href, time);
         } catch (IOException e) {
             throw new IllegalArgumentException("Incorrect link");
@@ -50,7 +57,7 @@ public class SqlRuParse implements Parse {
 
     public static void main(String[] args) {
         for (int i = 1; i <= 5; i++) {
-            System.out.println(new SqlRuParse().list("https://www.sql.ru/forum/job-offers/" + i));
+            System.out.println(new SqlRuParse(new SqlRuDateTimeParser()).list("https://www.sql.ru/forum/job-offers/" + i));
         }
     }
 }
