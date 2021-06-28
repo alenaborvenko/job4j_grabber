@@ -57,7 +57,8 @@ public class SqlRuParse implements Parse {
 
     public static void main(String[] args) {
         for (int i = 1; i <= 5; i++) {
-            System.out.println(new SqlRuParse(new SqlRuDateTimeParser()).list("https://www.sql.ru/forum/job-offers/" + i));
+            System.out.println(new SqlRuParse(new SqlRuDateTimeParser())
+                    .list("https://www.sql.ru/forum/job-offers/" + i));
         }
     }
 }
