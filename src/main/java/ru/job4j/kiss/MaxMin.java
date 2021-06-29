@@ -2,8 +2,6 @@ package ru.job4j.kiss;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class MaxMin {
 
