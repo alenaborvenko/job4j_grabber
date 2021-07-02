@@ -28,5 +28,6 @@ public class Person {
     @Override
     protected void finalize() throws Throwable {
         System.out.printf("Removed %d %s%n", age, name);
+        super.finalize();
     }
 }
