@@ -18,7 +18,7 @@ public abstract class AbstractCache<K, V> {
             value = load(key);
             put(key, value);
         }
-        return cache.get(key).get();
+        return value;
     }
 
     protected abstract V load(K key) throws IOException;
