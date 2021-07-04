@@ -1,11 +1,8 @@
 package ru.job4j.design.srp;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-
-import static java.util.Comparator.*;
 
 public class ReportHR implements Report {
     private Store store;

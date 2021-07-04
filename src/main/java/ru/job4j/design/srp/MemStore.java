@@ -9,7 +9,6 @@ public class MemStore implements Store {
     private final List<Employee> employees = new ArrayList<>();
 
     public void add(Employee em) {
-
         employees.add(em);
     }
 
