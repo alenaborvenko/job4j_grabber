@@ -15,10 +15,7 @@ public class ReportJSON implements Report {
     public String generate(Predicate<Employee> filter) {
         StringBuilder rsl = new StringBuilder();
         Gson gson = new Gson();
-        for (var employee : store.findBy(filter)) {
-            rsl.append(gson.toJson(employee))
-                    .append(System.lineSeparator());
-        }
+        rsl.append(gson.toJson(store.findBy(filter)));
         return rsl.toString();
     }
 }

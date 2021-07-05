@@ -6,8 +6,10 @@ import org.junit.Test;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -125,12 +127,11 @@ public class ReportTest {
         store.add(worker2);
         Report engine = new ReportJSON(store);
         Gson gson = new Gson();
-        StringBuilder expect = new StringBuilder()
-                .append(gson.toJson(worker))
-                .append(System.lineSeparator())
-                .append(gson.toJson(worker2))
-                .append(System.lineSeparator());
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        String expect = gson.toJson(new ArrayList<>(List.of(
+                worker,
+                worker2
+        )));
+        assertThat(engine.generate(em -> true), is(expect));
     }
 
     @Test
