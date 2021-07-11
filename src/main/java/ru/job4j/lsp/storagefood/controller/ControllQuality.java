@@ -2,6 +2,7 @@ package ru.job4j.lsp.storagefood.controller;
 
 import ru.job4j.lsp.storagefood.model.Food;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllQuality {
@@ -24,5 +25,14 @@ public class ControllQuality {
         for (Food food : foods) {
             relocation(food);
         }
+    }
+
+    public void resort() {
+        List<Food> allFoodInStores = new ArrayList<>();
+        for (Store currentStore : stores) {
+            allFoodInStores.addAll(currentStore.getFoodFromStore());
+            currentStore.getFoodFromStore().clear();
+        }
+        relocationList(allFoodInStores);
     }
 }
