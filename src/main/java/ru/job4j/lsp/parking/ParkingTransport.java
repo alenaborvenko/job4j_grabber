@@ -1,33 +1,59 @@
 package ru.job4j.lsp.parking;
 
 public class ParkingTransport implements Parking {
-    private int sizeParking;
+    private final int beginPassenger;
+    private final int beginTruck;
+    private int passengerCarSize;
+    private int truckCarSize;
 
-    public ParkingTransport(int sizeParking) {
-        this.sizeParking = sizeParking;
+    public ParkingTransport(int passengerCarSize, int truckCarSize) {
+        this.passengerCarSize = passengerCarSize;
+        this.truckCarSize = truckCarSize;
+        beginPassenger = passengerCarSize;
+        beginTruck = truckCarSize;
     }
 
     @Override
-    public int getPlace() {
-        return sizeParking;
+    public int getPassengerCarSize() {
+        return passengerCarSize;
     }
 
     @Override
-    public void takeFreePlace(Transport transport) {
-        sizeParking -= transport.getSize();
+    public int getTruckCarSize() {
+        return truckCarSize;
     }
 
     @Override
     public void add(Transport transport) {
-        if (sizeParking < transport.getSize()) {
+        int sizeCar = transport.getSize();
+        if (sizeCar == 1) {
+            if (sizeCar <= passengerCarSize) {
+                passengerCarSize -= 1;
+            } else {
+                throw new IllegalArgumentException("Нет места на парковке. Ждите пока "
+                        + "кто-нибудь уедет");
+            }
+        } else if (truckCarSize > 0) {
+            truckCarSize -= 1;
+        } else if (sizeCar <= passengerCarSize) {
+            passengerCarSize -= sizeCar;
+        } else {
             throw new IllegalArgumentException("Нет места на парковке. Ждите пока "
                     + "кто-нибудь уедет");
         }
-        takeFreePlace(transport);
     }
 
     @Override
     public void delete(Transport transport) {
-        sizeParking += transport.getSize();
+        int sizeCar = transport.getSize();
+        if (sizeCar == 1) {
+            passengerCarSize += 1;
+        } else {
+            if (beginTruck >= truckCarSize + 1) {
+                truckCarSize += 1;
+            } else {
+                passengerCarSize += sizeCar;
+            }
+        }
     }
 }
