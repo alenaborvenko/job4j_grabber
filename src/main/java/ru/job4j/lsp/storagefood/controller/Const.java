@@ -1,4 +1,4 @@
-package ru.job4j.storagefood.controller;
+package ru.job4j.lsp.storagefood.controller;
 
 public class Const {
     public final static double MAX_PERCENT = 0.75;

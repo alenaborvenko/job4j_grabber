@@ -1,11 +1,11 @@
-package ru.job4j.storagefood.controller;
+package ru.job4j.lsp.storagefood.controller;
 
-import ru.job4j.storagefood.model.Food;
+import ru.job4j.lsp.storagefood.model.Food;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.job4j.storagefood.controller.Const.*;
+import static ru.job4j.lsp.storagefood.controller.Const.*;
 
 public class Shop implements Store {
     private List<Food> foods = new ArrayList<>();

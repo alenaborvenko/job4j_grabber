@@ -1,6 +1,6 @@
-package ru.job4j.storagefood.controller;
+package ru.job4j.lsp.storagefood.controller;
 
-import ru.job4j.storagefood.model.Food;
+import ru.job4j.lsp.storagefood.model.Food;
 
 import java.time.LocalDate;
 import java.util.List;

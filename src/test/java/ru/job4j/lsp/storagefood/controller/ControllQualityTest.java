@@ -1,7 +1,7 @@
-package ru.job4j.storagefood.controller;
+package ru.job4j.lsp.storagefood.controller;
 
 import org.junit.Test;
-import ru.job4j.storagefood.model.*;
+import ru.job4j.lsp.storagefood.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
